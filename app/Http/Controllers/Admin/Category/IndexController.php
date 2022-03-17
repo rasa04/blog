@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function __invoke()
     {
         $categories = Category::orderBy('id', 'desc')->get();
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
     
 }
