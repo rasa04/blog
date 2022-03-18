@@ -1,0 +1,81 @@
+<?php 
+
+namespace App\Service;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Post;
+use Exception;
+
+class PostService
+{
+	public function store($data)
+	{
+        try
+        {
+        	Db::beginTransaction(); //транзакции что бы пост не дублировалась
+        	if (isset($data['tag_ids'])) {
+            	$tagIds = $data['tag_ids'];
+            	unset($data['tag_ids']);
+        	}
+            if(isset($data['preview_image']))
+            {
+				$data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
+            }
+            if (isset($data['main_image']))
+            {
+            	$data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
+            }
+
+            $post = Post::firstOrCreate($data);
+            if (isset($tagIds)) {
+            	$post->tags()->attach($tagIds);
+            }
+            
+
+            Db::commit();
+        }
+        catch(\Exception $exception)
+        {
+        	Db::rollback();
+            abort(500);
+        }
+	}
+
+	public function update($data, $post)
+	{
+		try
+		{
+			Db::beginTransaction();
+			if (isset($data['tag_ids'])) {
+				$tagIds = $data['tag_ids'];
+				unset($data['tag_ids']);
+        	}
+            if(isset($data['preview_image']))
+            {
+				$data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
+            }
+            if (isset($data['main_image']))
+            {
+            	$data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
+            }
+	        $post->update($data);
+
+	        if (isset($tagIds)) {
+	        	$post->tags()->sync($tagIds);
+	        }
+            Db::commit();
+		}
+		catch (\Exception $exception)
+		{
+        	Db::rollback();
+			abort(500);
+		}
+
+
+        return $post;
+	}
+}
+
+
+

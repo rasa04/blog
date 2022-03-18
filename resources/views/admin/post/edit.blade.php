@@ -34,7 +34,7 @@
               <div class="form-group w-25">
                 <input type="text" name="title" class="form-control" placeholder="Название поста" value="{{ $post->title }}">
                 @error('title')
-                  <div class="text-danger">Это поля необходимо для заполнения</div>
+                  <div class="text-danger">{{ $message }}</div>
                 @enderror
               </div>
               <div class="form-group">
@@ -53,7 +53,7 @@
                   </div>
                 </div>
                 @error('preview_image')
-                  <div class="text-danger">Выберете картинку</div>
+                  <div class="text-danger">{{ $message }}</div>
                 @enderror
               </div>
               <div class="form-group">
@@ -71,13 +71,13 @@
                   </div>
                 </div>
                 @error('main_image')
-                  <div class="text-danger">Выберете картинку</div>
+                  <div class="text-danger">{{ $message }}</div>
                 @enderror
               </div>
               <div class="form-group">
                 <textarea id="summernote" name="content">{{ $post->content }}</textarea>
                 @error('content')
-                  <div class="text-danger">Это поля необходимо для заполнения</div>
+                  <div class="text-danger">{{ $message }}</div>
                 @enderror
               </div>
               <div class="form-group w-50">
