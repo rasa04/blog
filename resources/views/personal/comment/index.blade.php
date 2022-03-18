@@ -25,8 +25,40 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          
-          <!-- ./col -->
+          <div class="col-5">
+            <div class="card">
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Название</th>
+                      <th colspan="2" class="text-center">Действия</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($comments as $comment)
+                    <tr>
+                      <td>{{ $comment->id }}</td>
+                      <td>{{ $comment->message }}</td>
+                      <td><a class="text-success" href="{{ route('personal.comment.edit', $comment->id) }}"><i class="fas fa-pencil-alt"></i></a></td>
+
+                        <form action="{{ route('personal.comment.delete', $comment->id) }}" method="comment">
+                          @csrf
+                          @method('DELETE')
+                          <button class="border-0 bg-transparent" type="submit"><i class="fas fa-trash text-danger" role="button"></i></button>
+                        </form>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+          </div>
+            <!-- ./col -->
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

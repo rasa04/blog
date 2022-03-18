@@ -25,8 +25,40 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          
-          <!-- ./col -->
+          <div class="col-5">
+            <div class="card">
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Название</th>
+                      <th colspan="2" class="text-center">Действия</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($posts as $post)
+                    <tr>
+                      <td>{{ $post->id }}</td>
+                      <td>{{ $post->title }}</td>
+                      <td><a href="{{ route('admin.post.show', $post->id) }}"><i class="fa fa-eye"></i></a></td>
+                      <td>
+                        <form action="{{ route('personal.liked.delete', $post->id) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button class="border-0 bg-transparent" type="submit"><i class="fas fa-trash text-danger" role="button"></i></button>
+                        </form>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+          </div>
+            <!-- ./col -->
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
