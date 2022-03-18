@@ -17,6 +17,24 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function(){
     Route::get('/', 'IndexController');
 });
 
+
+//Personal
+Route::group(['namespace' => 'App\Http\Controllers\Personal', 'prefix' => 'personal', 'middleware' => ['auth', 'verified']], function()
+{
+    Route::get('/', function(){
+        return redirect()->route('personal.main.index');
+    });
+    Route::group(['namespace' => 'Main', 'prefix' => 'main'], function(){
+        Route::get('/', 'IndexController')->name('personal.main.index');
+    });
+    Route::group(['namespace' => 'Liked', 'prefix' => 'likeds'], function(){
+        Route::get('/', 'IndexController')->name('personal.liked.index');
+    });
+    Route::group(['namespace' => 'Comment', 'prefix' => 'comments'], function(){
+        Route::get('/', 'IndexController')->name('personal.comment.index');
+    });
+});
+
 //Admin https://youtu.be/njFqr4Si6H4?t=134
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function()
 {
