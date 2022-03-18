@@ -17,8 +17,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function(){
     Route::get('/', 'IndexController');
 });
 
-//Admin
-Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function()
+//Admin https://youtu.be/njFqr4Si6H4?t=134
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function()
 {
     Route::group(['namespace' => 'Main'], function(){
         Route::get('/', 'IndexController');
@@ -61,4 +61,4 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
     });
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
