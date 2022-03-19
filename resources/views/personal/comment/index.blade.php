@@ -42,8 +42,8 @@
                       <td>{{ $comment->id }}</td>
                       <td>{{ $comment->message }}</td>
                       <td><a class="text-success" href="{{ route('personal.comment.edit', $comment->id) }}"><i class="fas fa-pencil-alt"></i></a></td>
-
-                        <form action="{{ route('personal.comment.delete', $comment->id) }}" method="comment">
+                      <td>
+                        <form action="{{ route('personal.comment.delete', $comment->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
                           <button class="border-0 bg-transparent" type="submit"><i class="fas fa-trash text-danger" role="button"></i></button>

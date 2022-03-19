@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Personal\Comment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Request\Personal\Comment\UpdateRequest;
+use App\Http\Requests\Personal\Comment\UpdateRequest;
 use App\Models\Comment;
 
 class UpdateController extends Controller

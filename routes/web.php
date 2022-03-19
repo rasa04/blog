@@ -17,6 +17,22 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function(){
     Route::get('/', 'IndexController')->name('main.index');
 });
 
+Route::group(['namespace' => 'App\Http\Controllers\Post', 'prefix' => 'posts'], function(){
+    Route::get('/', 'IndexController')->name('post.index');
+    Route::get('/{post}', 'ShowController')->name('post.show');
+
+    Route::group(['namespace' => 'Comment', 'prefix' => '{post}/comments'], function(){
+        Route::post('/', 'StoreController')->name('post.comment.store');
+    });
+    Route::group(['namespace' => 'Like', 'prefix' => '{post}/likes'], function(){
+        Route::post('/', 'StoreController')->name('post.like.store');
+    });
+});
+Route::group(['namespace' => 'App\Http\Controllers\Category', 'prefix' => 'categories'], function(){
+    Route::get('/', 'IndexController')->name('category.index');
+    Route::get('/{category}/posts', 'Post\IndexController')->name('category.post.index');
+});
+
 
 //Personal
 Route::group(['namespace' => 'App\Http\Controllers\Personal', 'prefix' => 'personal', 'middleware' => ['auth', 'verified']], function()
